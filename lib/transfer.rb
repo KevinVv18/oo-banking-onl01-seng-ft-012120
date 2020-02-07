@@ -27,7 +27,7 @@ class Transfer
     end
   end
   
-  def valid_transaction
+  def valid_transaction?
     @status == "pending" && self.valid? && self.valid_amount?
   end
 
