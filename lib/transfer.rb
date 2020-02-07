@@ -11,12 +11,12 @@ class Transfer
   end
 
   def valid?
-    @sender.valid? && @receiver.valid? ? true : false
+    @sender.valid? && @receiver.valid?
   end
 
   def execute_transaction
 
-    if @status == "pending" && self.accounts_valid? && self.valid?
+    if @status == "pending" && self.valid? && self.valid_amount?
       #doing transfer 
       @sender.balance -= @amount
       @receiver.balance += @amount
@@ -27,11 +27,9 @@ class Transfer
     end
   end
   
-  def accounts_valid?
-    @receiver.valid? && @sender.valid?  
-  end
 
-  def valid?
+
+  def valid_amount?
    @sender.balance >= @amount
   end
   
