@@ -16,7 +16,7 @@ class Transfer
 
   def execute_transaction
 
-    if @status == "pending" && @sender.valid? && @receiver.valid? && @sender.balance >= @amount
+    if @status == "pending" && accounts_valid? && self.valid?
       #doing transfer 
       @sender.balance -= @amount
       @receiver.balance += @amount
@@ -26,7 +26,15 @@ class Transfer
       "Transaction rejected. Please check your account balance."
     end
   end
+  
+  def accounts_valid?
+    @receiver.valid? && @sender.valid?  
+  end
 
+  def valid?
+   @sender.balance >= @amount
+  end
+  
   def reverse_transfer
     if @status == "complete"
       @sender.balance += @amount
